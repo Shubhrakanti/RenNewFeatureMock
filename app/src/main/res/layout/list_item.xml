@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    card_view:cardElevation="7dp"
+    card_view:cardCornerRadius="7dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="14dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            tools:src="@drawable/prof_pic_1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/profile_pic_img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Angela"
+            android:layout_toRightOf="@id/profile_pic_img"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="7dp"
+            android:id="@+id/user_name"
+            />
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@drawable/ic_share"
+            android:id="@+id/share_icon"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="17dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="5 m"
+            android:layout_marginTop="17dp"
+            android:layout_marginRight="7dp"
+            android:layout_toLeftOf="@id/share_icon"
+            android:id="@+id/time_till_post"
+            />
+        <ImageView
+            android:layout_width="240dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/main_image_post"
+            android:layout_marginTop="14dp"
+            android:layout_centerHorizontal="true"
+            tools:src="@drawable/woody_selfie"
+            android:layout_below="@id/profile_pic_img"/>
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:id="@+id/like_img"
+            android:src="@drawable/ic_like"
+            android:layout_below="@id/main_image_post"
+            android:layout_marginTop="14dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/num_likes_text_view"
+            tools:text="15"
+            android:layout_toRightOf="@id/like_img"
+            android:layout_below="@id/main_image_post"
+            android:layout_marginTop="19dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="7dp"/>
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:id="@+id/comment_img"
+            android:src="@drawable/ic_comment"
+            android:layout_toRightOf="@id/num_likes_text_view"
+            android:layout_below="@id/main_image_post"
+            android:layout_marginTop="14dp"
+            android:layout_marginLeft="14dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/num_comments_text_view"
+            tools:text="2"
+            android:layout_toRightOf="@id/comment_img"
+            android:layout_below="@id/main_image_post"
+            android:layout_marginTop="19dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="7dp"/>
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_forward"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/main_image_post"
+            android:layout_marginTop="14dp"/>
+
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
