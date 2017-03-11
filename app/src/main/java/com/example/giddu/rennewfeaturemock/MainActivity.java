@@ -1,5 +1,7 @@
 package com.example.giddu.rennewfeaturemock;
 
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,13 +9,17 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recList;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private String pictureImagePath ="";
     private ArrayList<PicturePost> picturePosts;
     private PicturePostAdapter picturePostAdapter;
-    private Uri imageUri;
-    private String currentPhotoPath;
+    private Uri photoURI;
+    private static String comment = "";
 
 
     @Override
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         recList.setLayoutManager(llm);
 
         picturePosts = new ArrayList<>();
-        picturePosts.add(new PicturePost("Obama","5 m",R.drawable.prof_pic_1,BitmapFactory.decodeResource(getResources(), R.drawable.woody_selfie), 15, 5));
+        picturePosts.add(new PicturePost("Obama","5 m",R.drawable.prof_pic_1,BitmapFactory.decodeResource(getResources(), R.drawable.woody_selfie), 15, 5,"OMG, I look so good."));
 
         picturePostAdapter = new PicturePostAdapter(picturePosts);
 
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("STARTING CAMERA INTENT", ex.toString());
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
+                photoURI = FileProvider.getUriForFile(this,
                         "com.example.giddu.rennewfeaturemock",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -76,11 +81,43 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            picturePosts.add(new PicturePost("Obama","5 m",R.drawable.prof_pic_1,imageBitmap, 15, 5));
-        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter Caption");
+
+        final EditText input = new EditText(this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        final ContentResolver contentResolver = getContentResolver();
+
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                comment = input.getText().toString();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, photoURI);
+
+                    picturePosts.add(new PicturePost("Obama","5 m",R.drawable.prof_pic_1,bitmap, 15, 5, comment));
+                } catch (Exception e){
+
+                }
+
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+
     }
 
 
@@ -94,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 ".jpg",
                 storageDir
         );
-        currentPhotoPath = image.getAbsolutePath();
         return image;
 
     }

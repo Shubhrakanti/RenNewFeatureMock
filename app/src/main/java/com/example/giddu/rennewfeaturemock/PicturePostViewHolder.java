@@ -19,6 +19,7 @@ public class PicturePostViewHolder extends RecyclerView.ViewHolder {
     protected TextView numComments;
     protected TextView username;
     protected TextView timePosted;
+    protected TextView caption;
 
     public PicturePostViewHolder(View v){
         super (v);
@@ -28,6 +29,7 @@ public class PicturePostViewHolder extends RecyclerView.ViewHolder {
         numComments = (TextView) v.findViewById(R.id.num_comments_text_view);
         username = (TextView) v.findViewById(R.id.user_name);
         timePosted = (TextView) v.findViewById(R.id.time_till_post);
+        caption = (TextView) v.findViewById(R.id.caption_text_view);
 
     }
 

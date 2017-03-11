@@ -42,6 +42,7 @@ public class PicturePostAdapter extends RecyclerView.Adapter<PicturePostViewHold
         holder.numComments.setText(String.valueOf(currentPost.getNum_comments()));
         holder.numLikes.setText(String.valueOf(currentPost.getNum_likes()));
         holder.profilePicture.setImageResource(currentPost.getProfPicID());
+        holder.caption.setText(currentPost.getCaption());
     }
 
     public void updateDataSet(ArrayList<PicturePost> input){
